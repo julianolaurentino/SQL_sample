@@ -20,4 +20,3 @@ FROM
     [AdventureWorks2017].[HumanResources].[Employee] HE
 LEFT JOIN [AdventureWorks2017].[Person].[PersonPhone] PP
     ON HE.BusinessEntityID = PP.BusinessEntityID;
-

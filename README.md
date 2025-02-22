@@ -1,4 +1,4 @@
-# 1️⃣ SQL Avançado
+# 🚀 SQL Avançado
 
 
 ## 📌 Objetivo ##
