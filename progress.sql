@@ -36,3 +36,19 @@ SELECT
     ,LastName
 FROM [AdventureWorks2017].[Person].[Person]
 ORDER BY FirstName ASC, LastName DESC
+
+
+SELECT 
+    Name
+    ,ListPrice
+FROM [AdventureWorks2017].[Production].[Product]
+WHERE ListPrice NOT BETWEEN 1000 AND 1500
+ORDER BY ListPrice DESC
+
+
+SELECT 
+    Name
+    ,ListPrice
+FROM [AdventureWorks2017].[Production].[Product]
+WHERE ListPrice BETWEEN 1000 AND 1500
+ORDER BY ListPrice ASC
