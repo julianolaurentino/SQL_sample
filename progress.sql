@@ -1,9 +1,38 @@
-SELECT
+SELECT *
+FROM [AdventureWorks2017].[Person].EmailAddress
+WHERE
+    BusinessEntityID = 26
+
+SELECT *
+FROM [AdventureWorks2017].[Person].Person
+WHERE 
+    FirstName = 'Peter' AND LastName = 'Krebs'
+
+SELECT 
+    PP.FIRSTNAME
+    ,PP.LASTNAME
+    ,PE.EMAILADDRESS
+FROM 
+    [AdventureWorks2017].PERSON.PERSON PP
+LEFT JOIN [AdventureWorks2017].[Person].EmailAddress PE
+    ON PP.BusinessEntityID = PE.BusinessEntityID
+    WHERE PP.FirstName = 'Peter' AND PP.LastName = 'Krebs'
+
+
+SELECT COUNT(*) AS QTD_PRODUTOS
+FROM [AdventureWorks2017].[Production].Product
+
+SELECT COUNT([Size]) AS Size
+FROM [AdventureWorks2017].[Production].[Product]
+
+SELECT 
     FirstName
-    ,Lastname
-FROM [AdventureWorks2017].PERSON.PERSON
+    ,LastName
+FROM [AdventureWorks2017].[Person].[Person]
+ORDER BY FirstName ASC
 
-SELECT DISTINCT
-    Lastname
-FROM [AdventureWorks2017].PERSON.PERSON
-
+SELECT 
+    FirstName
+    ,LastName
+FROM [AdventureWorks2017].[Person].[Person]
+ORDER BY FirstName ASC, LastName DESC
