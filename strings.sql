@@ -1,7 +1,7 @@
 --extraindo apenas a parte do login após a barra invertida (\), usando a função RIGHT combinada com CHARINDEX
 --usando apenas a função SUBSTRING para extrair a parte após a barra invertida (\)
 SELECT
-    --RIGHT(LoginID, LEN(LoginID) - CHARINDEX('\', LoginID)) AS usuario
+    RIGHT(LoginID, LEN(LoginID) - CHARINDEX('\', LoginID)) AS usuario
     ,SUBSTRING(LoginID, 1, CHARINDEX('-', LoginID) - 1) AS empresa
     ,HireDate
 FROM [AdventureWorks2017].[HumanResources].[Employee]
