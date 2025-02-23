@@ -23,7 +23,7 @@ SELECT
 FROM 
     [AdventureWorks2017].[HumanResources].[Employee] HE
 LEFT JOIN [AdventureWorks2017].[Person].[PersonPhone] PP
-    ON HE.BusinessEntityID = PP.BusinessEntityID;
+    ON HE.BusinessEntityID = PP.BusinessEntityID
 
 -- Alguns outros desafios:
 --Selecione os nomes dos produtos (Name) da tabela Production.Product, removendo espaços extras no início e no final.
@@ -42,7 +42,7 @@ FROM [adventureworks2017].[Person].Person
 SELECT TOP 10
     EmailAddress, 
     SUBSTRING(EmailAddress, CHARINDEX('@', EmailAddress) + 1, LEN(EmailAddress)) AS Dominio
-FROM AdventureWorks2017.Person.EmailAddress;
+FROM AdventureWorks2017.Person.EmailAddress
 
 --Alguns números de telefone na tabela Person.PersonPhone possuem parênteses e espaços.
 --Remova os parênteses "(" e ")" dos números.
@@ -50,16 +50,44 @@ FROM AdventureWorks2017.Person.EmailAddress;
 SELECT 
     PhoneNumber, 
     REPLACE(REPLACE(PhoneNumber, '(', ''), ')', '') AS TelefoneFormatado
-FROM AdventureWorks2017.Person.PersonPhone;
+FROM AdventureWorks2017.Person.PersonPhone
 
 --Substitua os espaços internos dos números de telefone da tabela Person.PersonPhone por hífens (-).
 SELECT PhoneNumber, 
        REPLACE(PhoneNumber, ' ', '-') AS TelefoneFormatado
-FROM AdventureWorks2017.Person.PersonPhone;
+FROM AdventureWorks2017.Person.PersonPhone
 
 --O código do produto (ProductNumber) na tabela Production.Product segue o formato AA-1234. Extraia apenas a parte antes do hífen (AA).
 SELECT ProductNumber, 
        LEFT(ProductNumber, CHARINDEX('-', ProductNumber) - 1) AS Codigo
-FROM AdventureWorks2017.Production.Product;
+FROM AdventureWorks2017.Production.Product
 
+--Os números da tabela Person.PersonPhone podem ter uma extensão no formato "555-1234 ext 5678".
+--Extraia apenas a parte após "ext", se existir.
+SELECT 
+    PhoneNumber, 
+       CASE 
+           WHEN CHARINDEX('ext', PhoneNumber) > 0 
+           THEN SUBSTRING(PhoneNumber, CHARINDEX('ext', PhoneNumber) + 4, LEN(PhoneNumber)) 
+           ELSE NULL 
+       END AS Extension
+FROM [AdventureWorks2017].[Person].[PersonPhone]
 
+--Na tabela HumanResources.Employee, os funcionários possuem uma data de admissão (HireDate).
+--Formate a data no formato: "Contratado em DD de Mês de YYYY".
+SELECT 
+    HireDate
+    ,format(HireDate, '"Contratado em" dd "de" MMMM "de" yyyy', 'pt-BR') AS DataContratacao
+FROM [AdventureWorks2017].[HumanResources].[Employee]
+
+--Gere um e-mail no formato "primeiro.ultimo@adventure-works.com".
+SELECT FirstName, LastName, 
+       LOWER(CONCAT(FirstName, '.', LastName, '@adventure-works.com')) AS Email
+FROM [AdventureWorks2017].[Person].[Person]
+
+--Na tabela Production.Product, os produtos têm um código no formato "AA-1234".
+--Extraia apenas a parte numérica (após o "-").
+SELECT 
+    ProductNumber, 
+    SUBSTRING(ProductNumber, CHARINDEX('-', ProductNumber) + 1, LEN(ProductNumber)) AS CodigoNumerico
+FROM [AdventureWorks2017].[Production].[Product]
