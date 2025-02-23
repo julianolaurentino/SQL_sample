@@ -2,7 +2,7 @@
 --usando apenas a função SUBSTRING para extrair a parte após a barra invertida (\)
 SELECT
     --RIGHT(LoginID, LEN(LoginID) - CHARINDEX('\', LoginID)) AS usuario
-    ,SUBSTRING(LoginID, 1, CHARINDEX('-', LoginID) - 1) AS empresa
+    SUBSTRING(LoginID, 1, CHARINDEX('-', LoginID) - 1) AS empresa
     ,HireDate
 FROM [AdventureWorks2017].[HumanResources].[Employee]
 WHERE HireDate BETWEEN '2009-01-01' AND '2009-01-31'
@@ -10,14 +10,14 @@ ORDER BY HireDate ASC;
 
 --usando a função REPLACE para substituir os espaços por hífens e a função LTRIM e RTRIM para remover os espaços no início e no final da string
 SELECT DISTINCT
-    --REPLACE(LTRIM(RTRIM(RIGHT(PhoneNumber, LEN(PhoneNumber) - CHARINDEX(') ', PhoneNumber)))), ' ', '-') AS PhoneNumber_format
+    REPLACE(LTRIM(RTRIM(RIGHT(PhoneNumber, LEN(PhoneNumber) - CHARINDEX(') ', PhoneNumber)))), ' ', '-') AS PhoneNumber_format
 FROM [AdventureWorks2017].[Person].PersonPhone
 ORDER BY PhoneNumber ASC;
 
 --usando todas as funções juntas e criando um join a partir do BusinessEntityID
 SELECT 
     --RIGHT(LoginID, LEN(LoginID) - CHARINDEX('\', LoginID)) AS usuario
-    ,SUBSTRING(LoginID, 1, CHARINDEX('-', LoginID) - 1) AS empresa
+    SUBSTRING(LoginID, 1, CHARINDEX('-', LoginID) - 1) AS empresa
     ,HireDate
     --,REPLACE(LTRIM(RTRIM(RIGHT(phonenumber, LEN(PhoneNumber) - CHARINDEX(') ', PhoneNumber)))), ' ', '-') AS PhoneNumber_format
 FROM 
