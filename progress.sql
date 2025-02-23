@@ -1,3 +1,5 @@
+--Criando algumas consultas para testes
+
 SELECT *
 FROM [AdventureWorks2017].[Person].EmailAddress
 WHERE
