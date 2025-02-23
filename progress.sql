@@ -3,12 +3,12 @@
 SELECT *
 FROM [AdventureWorks2017].[Person].EmailAddress
 WHERE
-    BusinessEntityID = 26
+    BusinessEntityID = 26;
 
 SELECT *
 FROM [AdventureWorks2017].[Person].Person
 WHERE 
-    FirstName = 'Peter' AND LastName = 'Krebs'
+    FirstName = 'Peter' AND LastName = 'Krebs';
 
 SELECT 
     PP.FIRSTNAME
@@ -18,26 +18,26 @@ FROM
     [AdventureWorks2017].PERSON.PERSON PP
 LEFT JOIN [AdventureWorks2017].[Person].EmailAddress PE
     ON PP.BusinessEntityID = PE.BusinessEntityID
-    WHERE PP.FirstName = 'Peter' AND PP.LastName = 'Krebs'
+    WHERE PP.FirstName = 'Peter' AND PP.LastName = 'Krebs';
 
 
 SELECT COUNT(*) AS QTD_PRODUTOS
 FROM [AdventureWorks2017].[Production].Product
 
 SELECT COUNT([Size]) AS Size
-FROM [AdventureWorks2017].[Production].[Product]
+FROM [AdventureWorks2017].[Production].[Product];
 
 SELECT 
     FirstName
     ,LastName
 FROM [AdventureWorks2017].[Person].[Person]
-ORDER BY FirstName ASC
+ORDER BY FirstName ASC;
 
 SELECT 
     FirstName
     ,LastName
 FROM [AdventureWorks2017].[Person].[Person]
-ORDER BY FirstName ASC, LastName DESC
+ORDER BY FirstName ASC, LastName DESC;
 
 
 SELECT 
@@ -45,7 +45,7 @@ SELECT
     ,ListPrice
 FROM [AdventureWorks2017].[Production].[Product]
 WHERE ListPrice NOT BETWEEN 1000 AND 1500
-ORDER BY ListPrice DESC
+ORDER BY ListPrice DESC;
 
 
 SELECT 
@@ -53,4 +53,4 @@ SELECT
     ,ListPrice
 FROM [AdventureWorks2017].[Production].[Product]
 WHERE ListPrice BETWEEN 1000 AND 1500
-ORDER BY ListPrice ASC
+ORDER BY ListPrice ASC;
