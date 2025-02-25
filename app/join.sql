@@ -50,3 +50,14 @@ LEFT JOIN [adventureWorks2017].[Sales].[PersonCreditCard] PC --19972 LINHAS
 --INNER JOIN  [adventureWorks2017].[Sales].[PersonCreditCard] PC --19118 LINHAS
     ON PP.BusinessEntityID = PC.BusinessEntityID
 WHERE PC.BusinessEntityID IS NULL; --lista de pessoas que não possuem cartão de crédito / 854 linhas
+
+--Retorna todas as pessoas e todos os funcionários. 
+--Quando não há correspondência, os valores de colunas da outra tabela aparecem como NULL.
+SELECT 
+    P.FirstName
+    ,P.LastName
+    ,E.JobTitle
+    ,E.HireDate
+FROM [AdventureWorks2017].[Person].[Person] P
+FULL JOIN [AdventureWorks2017].[HumanResources].[Employee] E
+    ON P.BusinessEntityID = E.BusinessEntityID;
