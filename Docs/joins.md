@@ -68,3 +68,7 @@ Cada pessoa será combinada com todos os departamentos! Se houver 100 pessoas e 
 * ✅ RIGHT JOIN → Similar ao LEFT, mas priorizando a tabela da direita.
 * ✅ FULL JOIN → Quando quer todos os registros de ambas as tabelas.
 * ✅ CROSS JOIN → Quando precisa combinar tudo com tudo (produto cartesiano).
+
+
+---
+![JOINS](https://alyssontmv.wordpress.com/wp-content/uploads/2014/09/sqljoins2.png)

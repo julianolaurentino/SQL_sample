@@ -48,4 +48,3 @@ Manipular strings é essencial em SQL. Aqui estão as funções mais usadas para
 | **`LOWER`**   | Converte a string para minúsculas. | `LOWER('SQL')` | `"sql"` |
 
 ---
-

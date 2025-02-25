@@ -24,3 +24,5 @@ Dominar consultas complexas em **SQL**, modelagem de dados e otimização de per
 ## 👾 Banco de exemplo ##
 
 [AdventureWorks2014](https://learn.microsoft.com/pt-br/sql/samples/adventureworks-install-configure?view=sql-server-ver16&tabs=ssms)
+
+![image](https://media.geeksforgeeks.org/wp-content/uploads/20220803202839/step7arrowed.png)

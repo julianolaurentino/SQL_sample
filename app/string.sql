@@ -42,7 +42,7 @@ FROM [adventureworks2017].[Person].Person;
 SELECT TOP 10
     EmailAddress, 
     SUBSTRING(EmailAddress, CHARINDEX('@', EmailAddress) + 1, LEN(EmailAddress)) AS Dominio
-FROM AdventureWorks2017.Person.EmailAddress;
+FROM [AdventureWorks2017].[Person].[EmailAddress];
 
 --Alguns números de telefone na tabela Person.PersonPhone possuem parênteses e espaços.
 --Remova os parênteses "(" e ")" dos números.
@@ -50,17 +50,17 @@ FROM AdventureWorks2017.Person.EmailAddress;
 SELECT 
     PhoneNumber, 
     REPLACE(REPLACE(PhoneNumber, '(', ''), ')', '') AS TelefoneFormatado
-FROM AdventureWorks2017.Person.PersonPhone;
+FROM [AdventureWorks2017].[Person].[PersonPhone];
 
 --Substitua os espaços internos dos números de telefone da tabela Person.PersonPhone por hífens (-).
 SELECT PhoneNumber, 
        REPLACE(PhoneNumber, ' ', '-') AS TelefoneFormatado
-FROM AdventureWorks2017.Person.PersonPhone;
+FROM [AdventureWorks2017].[Person].[PersonPhone];
 
 --O código do produto (ProductNumber) na tabela Production.Product segue o formato AA-1234. Extraia apenas a parte antes do hífen (AA).
 SELECT ProductNumber, 
        LEFT(ProductNumber, CHARINDEX('-', ProductNumber) - 1) AS Codigo
-FROM AdventureWorks2017.Production.Product;
+FROM [AdventureWorks2017].[Production].[Product];
 --Os números da tabela Person.PersonPhone podem ter uma extensão no formato "555-1234 ext 5678".
 --Extraia apenas a parte após "ext", se existir.
 SELECT 
