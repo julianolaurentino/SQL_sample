@@ -61,3 +61,13 @@ SELECT
 FROM [AdventureWorks2017].[Person].[Person] P
 FULL JOIN [AdventureWorks2017].[HumanResources].[Employee] E
     ON P.BusinessEntityID = E.BusinessEntityID;
+
+--Exemplo de self join. Relacionando os produtos que possuem o mesmo unitpricediscount que possuem o mesmo ProductID
+SELECT
+    A.ProductID
+    ,A.UnitPrice
+    ,B.ProductID
+    ,B.UnitPrice
+FROM [AdventureWorks2017].[Sales].[SalesOrderDetail] A,
+    [AdventureWorks2017].[Sales].[SalesOrderDetail] B
+WHERE A.ProductID = B.ProductID

@@ -1,3 +1,50 @@
-# General
+# 🔒 Arquivos de credenciais e configurações sensíveis
+.env
+*.env
+config.json
+credentials.yml
+secrets.toml
+
+# 🚀 Arquivos gerados automaticamente
+__pycache__/
+*.log
+*.tmp
+*.bak
 .DS_Store
-.vscode
+
+# 📁 Dados brutos e processados (evita arquivos grandes no repositório)
+*.csv
+*.parquet
+*.json
+*.db
+datasets/
+data/
+logs/
+
+# 📊 Arquivos do Databricks
+*.dbc
+notebooks/
+
+# ☁️ Google Cloud Platform (GCP)
+# Chaves de API e configurações sensíveis
+gcp-key.json
+*.gcp.json
+*.bqcredentials
+.bigqueryrc
+.cloudshell/
+
+# Buckets do GCS (Google Cloud Storage)
+gcs_data/
+*.avro
+*.orc
+*.snappy
+
+# 🔍 Arquivos de cache e controle do sistema operacional e IDEs
+.vscode/
+.idea/
+Thumbs.db
+
+# 🐍 Dependências do Python
+venv/
+*.egg-info/
+*.pyc
