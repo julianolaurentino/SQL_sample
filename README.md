@@ -6,8 +6,8 @@ Dominar consultas complexas em **SQL**, modelagem de dados e otimização de per
 
 ## 📖 O que estudar? ##
 * 🔹 Joins Avançados → INNER, LEFT, RIGHT, FULL, CROSS, SELF JOIN
-* 🔹 Subqueries e CTEs → Melhor organização e performance
 * 🔹 Manipulação de strings → Transformação de dados
+* 🔹 Subqueries e CTEs → Melhor organização e performance
 * 🔹 Window Functions → ROW_NUMBER(), RANK(), LAG(), LEAD()
 * 🔹 Pivot e Unpivot → Transformação de dados
 * 🔹 Índices e Particionamento → Otimização de consultas
