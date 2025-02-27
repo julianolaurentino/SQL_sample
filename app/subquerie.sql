@@ -40,3 +40,16 @@ SELECT
     ,territoryID
 FROM [Sales].[Customer]
 WHERE CustomerID IN (SELECT CustomerID FROM [Sales].[SalesOrderHeader] WHERE SubTotal > 10.000)
+
+--listando os funcionários que trabalham no departamento de 'Sales'.
+SELECT 
+    HE.BusinessEntityID
+    ,HE.LoginID
+    ,HEDH.DepartmentID
+    ,HD.Name
+FROM HumanResources.Employee HE
+INNER JOIN HumanResources.EmployeeDepartmentHistory HEDH
+    ON HE.BusinessEntityID = HEDH.BusinessEntityID
+INNER JOIN HumanResources.Department HD
+    ON HEDH.DepartmentID = HD.DepartmentID
+WHERE HEDH.DepartmentID = (SELECT DepartmentID FROM HumanResources.Department WHERE Name = 'Sales');
