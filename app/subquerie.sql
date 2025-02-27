@@ -42,9 +42,11 @@ FROM [Sales].[Customer]
 WHERE CustomerID IN (SELECT CustomerID FROM [Sales].[SalesOrderHeader] WHERE SubTotal > 10.000)
 
 --listando os funcionários que trabalham no departamento de 'Sales'.
+--ajustando o login do usuário para exibir apenas o nome do usuário
 SELECT 
     HE.BusinessEntityID
-    ,HE.LoginID
+    --,HE.LoginID
+    ,SUBSTRING(LoginID, CHARINDEX('\', LoginID) + 1, LEN(LoginID)) AS login
     ,HEDH.DepartmentID
     ,HD.Name
 FROM HumanResources.Employee HE
