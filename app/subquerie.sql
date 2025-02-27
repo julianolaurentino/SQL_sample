@@ -53,3 +53,10 @@ INNER JOIN HumanResources.EmployeeDepartmentHistory HEDH
 INNER JOIN HumanResources.Department HD
     ON HEDH.DepartmentID = HD.DepartmentID
 WHERE HEDH.DepartmentID = (SELECT DepartmentID FROM HumanResources.Department WHERE Name = 'Sales');
+
+--Exibir os fornecedores que não possuem produtos cadastrados no banco de dados.
+SELECT
+    Name
+    ,BusinessEntityID
+FROM Purchasing.Vendor
+WHERE BusinessEntityID NOT IN (SELECT BusinessEntityID FROM Purchasing.ProductVendor);
