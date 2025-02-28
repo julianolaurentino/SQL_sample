@@ -39,7 +39,7 @@ SELECT
     ,PersonID
     ,territoryID
 FROM [Sales].[Customer]
-WHERE CustomerID IN (SELECT CustomerID FROM [Sales].[SalesOrderHeader] WHERE SubTotal > 10.000)
+WHERE CustomerID IN (SELECT CustomerID FROM [Sales].[SalesOrderHeader] WHERE SubTotal > 10.000);
 
 --listando os funcionários que trabalham no departamento de 'Sales'.
 --ajustando o login do usuário para exibir apenas o nome do usuário

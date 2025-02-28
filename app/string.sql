@@ -96,14 +96,14 @@ SELECT
     FirstName
     ,LastName
     ,CONCAT(FirstName, ' '  ,LastName) AS complet_name
-FROM Person.Person
+FROM Person.Person;
 
 --pode ser utilizado o upper e lower para deixar o nome completo em maiúsculo e minúsculo
 SELECT 
     FirstName
     ,LastName
     ,CONCAT(UPPER(FirstName), ' '  ,LOWER(LastName)) AS complet_name
-FROM Person.Person
+FROM Person.Person;
 
 --outra opção de espaço
 -- SELECT 
@@ -116,4 +116,4 @@ FROM Person.Person
 SELECT 
     UPPER(FirstName)
     ,LOWER(LastName)
-FROM Person.Person
+FROM Person.Person;
