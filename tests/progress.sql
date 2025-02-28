@@ -54,3 +54,12 @@ SELECT
 FROM [AdventureWorks2017].[Production].[Product]
 WHERE ListPrice BETWEEN 1000 AND 1500
 ORDER BY ListPrice ASC;
+
+--toda função de agregação precisa ser agrupada
+--exibindo a média do TotalDue agrupado por mês
+SELECT 
+    AVG(TotalDue) AS AVG_TotalDue
+    ,DATEPART(MONTH, OrderDate) AS Month
+FROM Sales.SalesOrderHeader
+GROUP BY DATEPART(MONTH, OrderDate)
+ORDER BY Month ASC;

@@ -59,6 +59,7 @@ WHERE HEDH.DepartmentID = (SELECT DepartmentID FROM HumanResources.Department WH
 --Exibir os fornecedores que não possuem produtos cadastrados no banco de dados.
 SELECT
     Name
+    ,AccountNumber
     ,BusinessEntityID
 FROM Purchasing.Vendor
 WHERE BusinessEntityID NOT IN (SELECT BusinessEntityID FROM Purchasing.ProductVendor);

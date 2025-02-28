@@ -90,3 +90,30 @@ SELECT
     ProductNumber, 
     SUBSTRING(ProductNumber, CHARINDEX('-', ProductNumber) + 1, LEN(ProductNumber)) AS CodigoNumerico
 FROM [AdventureWorks2017].[Production].[Product];
+
+
+SELECT 
+    FirstName
+    ,LastName
+    ,CONCAT(FirstName, ' '  ,LastName) AS complet_name
+FROM Person.Person
+
+--pode ser utilizado o upper e lower para deixar o nome completo em maiúsculo e minúsculo
+SELECT 
+    FirstName
+    ,LastName
+    ,CONCAT(UPPER(FirstName), ' '  ,LOWER(LastName)) AS complet_name
+FROM Person.Person
+
+--outra opção de espaço
+-- SELECT 
+--     FirstName
+--     ,LastName
+--     ,CONCAT(FirstName,+ ' '  +LastName) AS complet_name=
+-- FROM Person.Person
+
+--utilizando upper e lower
+SELECT 
+    UPPER(FirstName)
+    ,LOWER(LastName)
+FROM Person.Person
