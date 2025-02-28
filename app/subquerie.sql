@@ -43,7 +43,7 @@ WHERE CustomerID IN (SELECT CustomerID FROM [Sales].[SalesOrderHeader] WHERE Sub
 
 --listando os funcionários que trabalham no departamento de 'Sales'.
 --ajustando o login do usuário para exibir apenas o nome do usuário
-SELECT 
+SELECT
     HE.BusinessEntityID
     --,HE.LoginID
     ,SUBSTRING(LoginID, CHARINDEX('\', LoginID) + 1, LEN(LoginID)) AS login
