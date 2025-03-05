@@ -109,7 +109,8 @@ WHERE NumeroPedido <= 3;
 -- CTE TotalPorCliente soma o total gasto por cliente.
 --A consulta principal filtra os clientes que gastaram acima da média.
 WITH TotalPorCliente AS (
-    SELECT CustomerID, SUM(TotalDue) AS TotalGasto
+    SELECT CustomerID
+    ,SUM(TotalDue) AS TotalGasto
     FROM Sales.SalesOrderHeader
     GROUP BY CustomerID
 )
