@@ -63,3 +63,56 @@ SELECT
     ,BusinessEntityID
 FROM Purchasing.Vendor
 WHERE BusinessEntityID NOT IN (SELECT BusinessEntityID FROM Purchasing.ProductVendor);
+
+
+--A CTE ProdutosMaisCaros filtra produtos com preço maior que 0.
+--Depois, a consulta principal exibe os 100 mais caros ordenados por preço.
+WITH ProdutosMaisCaros AS (
+    SELECT Name, ListPrice
+    FROM Production.Product
+    WHERE ListPrice > 0
+)
+SELECT TOP 100 *
+FROM ProdutosMaisCaros
+ORDER BY ListPrice DESC;
+
+--O primeiro SELECT retorna o funcionário base.
+--O UNION ALL é usado para unir o resultado do SELECT com a própria CTE Hierarquia.
+--O segundo SELECT retorna todos os funcionários que estão na mesma hierarquia.
+WITH Hierarquia AS (
+    SELECT BusinessEntityID
+    ,NationalIDNumber
+    ,JobTitle
+    FROM HumanResources.Employee
+    WHERE BusinessEntityID >= 1  -- Começa por um funcionário específico
+
+    UNION ALL
+
+    SELECT E.BusinessEntityID, E.NationalIDNumber, E.JobTitle
+    FROM HumanResources.Employee E
+    INNER JOIN Hierarquia H
+        ON E.NationalIDNumber = H.BusinessEntityID
+)
+SELECT * FROM Hierarquia;
+
+--A CTE PedidosNumerados usa ROW_NUMBER() para numerar os pedidos por cliente.
+--A consulta principal filtra os 3 mais recentes (NumeroPedido <= 3).
+WITH PedidosNumerados AS (
+    SELECT CustomerID, SalesOrderID, OrderDate,
+           ROW_NUMBER() OVER (PARTITION BY CustomerID ORDER BY OrderDate DESC) AS NumeroPedido
+    FROM Sales.SalesOrderHeader
+)
+SELECT * 
+FROM PedidosNumerados
+WHERE NumeroPedido <= 3;
+
+-- CTE TotalPorCliente soma o total gasto por cliente.
+--A consulta principal filtra os clientes que gastaram acima da média.
+WITH TotalPorCliente AS (
+    SELECT CustomerID, SUM(TotalDue) AS TotalGasto
+    FROM Sales.SalesOrderHeader
+    GROUP BY CustomerID
+)
+SELECT *
+FROM TotalPorCliente
+WHERE TotalGasto > (SELECT AVG(TotalGasto) FROM TotalPorCliente);

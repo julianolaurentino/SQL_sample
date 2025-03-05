@@ -114,6 +114,6 @@ FROM Person.Person;
 
 --utilizando upper e lower
 SELECT 
-    UPPER(FirstName)
-    ,LOWER(LastName)
+    UPPER(FirstName) AS FirstName
+    ,LOWER(LastName) AS LastName
 FROM Person.Person;
