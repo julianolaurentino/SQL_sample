@@ -117,3 +117,47 @@ WITH TotalPorCliente AS (
 SELECT *
 FROM TotalPorCliente
 WHERE TotalGasto > (SELECT AVG(TotalGasto) FROM TotalPorCliente);
+
+
+-- CTE avglistprice calcula a média de ListPrice.
+--A consulta principal exibe os produtos com ListPrice acima da média.
+WITH avglistprice AS (
+    SELECT 
+        ProductID
+        ,ListPrice
+    FROM Production.Product
+    WHERE ListPrice > (SELECT AVG(ListPrice) FROM Production.Product)
+)
+SELECT *
+FROM avglistprice;
+
+-- CTE vendasporprodutos calcula o total de vendas por produto.
+--A consulta principal exibe os 100 produtos mais vendidos.
+WITH vendasporprodutos AS (
+    SELECT
+        SSO.ProductID
+        ,PP.Name as product
+        ,COUNT(*) AS TotalVendas
+    FROM sales.SalesOrderDetail SSO
+    INNER JOIN Production.Product PP
+        ON SSO.ProductID = PP.ProductID
+    GROUP BY SSO.ProductID
+            ,PP.Name
+)
+SELECT TOP 100 *
+FROM vendasporprodutos
+ORDER BY TotalVendas DESC;
+
+-- CTE funcionarioscontratados filtra funcionários contratados após 2010.
+WITH funcionarioscontratados AS (
+    SELECT
+        BusinessEntityID
+        ,JobTitle
+        ,HireDate
+    FROM HumanResources.Employee
+    WHERE YEAR(HireDate) > 2010
+)
+
+SELECT TOP 10 *
+FROM funcionarioscontratados
+ORDER BY HireDate DESC;
