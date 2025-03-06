@@ -161,3 +161,36 @@ WITH funcionarioscontratados AS (
 SELECT TOP 10 *
 FROM funcionarioscontratados
 ORDER BY HireDate DESC;
+
+-- CTE qtdpedidos calcula a quantidade de pedidos por cliente.
+WITH qtdpedidos AS (
+    SELECT
+        CustomerID
+        ,COUNT(*) AS TotalPedidos
+    FROM Sales.SalesOrderHeader
+    GROUP BY CustomerID
+)
+SELECT *
+FROM qtdpedidos
+--WHERE TotalPedidos > 5
+ORDER BY TotalPedidos DESC;
+
+-- CTE itensmaisvendidos calcula a quantidade de vendas por produto.
+-- A consulta principal exibe os 3 produtos mais vendidos.
+WITH itensmaisvendidos AS (
+    SELECT
+        SSO.ProductID
+        ,PP.Name
+        ,COUNT(*) AS TotalVendido
+    FROM Sales.SalesOrderDetail SSO
+    INNER JOIN Production.Product PP
+        ON SSO.ProductID = PP.ProductID
+    GROUP BY SSO.ProductID
+        ,PP.Name
+)
+SELECT TOP 3 *
+FROM itensmaisvendidos
+ORDER by TotalVendido DESC;
+
+
+
