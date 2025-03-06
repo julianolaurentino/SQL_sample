@@ -192,5 +192,16 @@ SELECT TOP 3 *
 FROM itensmaisvendidos
 ORDER by TotalVendido DESC;
 
+-- CTE totalgastocliente calcula o total gasto por cliente.
+-- A consulta principal exibe os clientes que gastaram acima da média.
+WITH totalgastocliente AS (
+    SELECT
+        CustomerID
+        ,AVG(TotalDue) AS TotalGasto
+    FROM Sales.SalesOrderHeader
+    GROUP BY CustomerID
+)
 
-
+SELECT * 
+FROM totalgastocliente
+WHERE TotalGasto > (SELECT AVG(TotalGasto) FROM totalgastocliente);
