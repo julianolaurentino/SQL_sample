@@ -205,3 +205,70 @@ WITH TotalGastoCliente AS (
 SELECT *
 FROM totalgastocliente
 WHERE TotalGasto > (SELECT AVG(TotalGasto) FROM totalgastocliente);
+
+--Criar uma CTE para calcular o salário médio por departamento 
+--e exibir a diferença de cada funcionário em relação a essa média.
+WITH departmentsalary AS (
+SELECT 
+    E.BusinessEntityID
+    ,E.JobTitle
+    ,E.OrganizationLevel
+    ,DH.DepartmentID
+    ,PH.Rate AS salary
+    ,AVG(PH.Rate) OVER(PARTITION BY DH.DepartmentID) AS salaryavg
+FROM HumanResources.Employee E
+INNER JOIN HumanResources.EmployeePayHistory PH ON E.BusinessEntityID = PH.BusinessEntityID
+INNER JOIN HumanResources.EmployeeDepartmentHistory DH ON E.BusinessEntityID = DH.BusinessEntityID
+)
+
+SELECT  
+    BusinessEntityID
+    ,JobTitle
+    ,DepartmentID
+    ,OrganizationLevel
+    ,(salary - salaryavg) AS avgdiff
+FROM departmentsalary
+ORDER BY DepartmentID, avgdiff DESC
+
+SELECT
+    BusinessEntityID
+    ,JobTitle
+    ,Gender
+    ,SalariedFlag
+FROM HumanResources.Employee;
+
+--Criar uma CTE para contar as vendas de cada produto 
+--e exibir os 5 mais vendidos por categoria.
+WITH VendasPorProduto AS (
+    SELECT 
+        P.ProductID,
+        P.Name AS Produto,
+        PS.Name AS Categoria,
+        COUNT(SD.SalesOrderID) AS TotalVendas,
+        RANK() OVER (PARTITION BY PS.Name ORDER BY COUNT(SD.SalesOrderID) DESC) AS Ranking
+    FROM Sales.SalesOrderDetail SD
+    JOIN Production.Product P ON SD.ProductID = P.ProductID
+    JOIN Production.ProductSubcategory PS ON P.ProductSubcategoryID = PS.ProductSubcategoryID
+    GROUP BY P.ProductID, P.Name, PS.Name
+)
+SELECT * 
+FROM VendasPorProduto
+WHERE Ranking <= 5
+ORDER BY Categoria, Ranking;
+
+--Criar uma CTE para calcular a quantidade de compras por cliente 
+--e listar aqueles que compraram acima da média geral.
+WITH totalqtdsales AS (
+SELECT
+    CustomerID
+    ,COUNT(SalesOrderNumber) AS qtdsales
+FROM Sales.SalesOrderHeader
+GROUP BY CustomerID
+)
+SELECT *
+FROM totalqtdsales
+WHERE qtdsales > (SELECT AVG(qtdsales) FROM totalqtdsales)
+ORDER BY qtdsales DESC;
+
+SELECT *
+FROM sales.SalesOrderHeader
