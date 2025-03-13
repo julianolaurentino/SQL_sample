@@ -112,8 +112,17 @@ FROM Person.Person;
 --     ,CONCAT(FirstName,+ ' '  +LastName) AS complet_name=
 -- FROM Person.Person
 
---utilizando upper e lower
+--utilizando várias funções
 SELECT 
-    UPPER(FirstName) AS FirstName
-    ,LOWER(LastName) AS LastName
+    UPPER(FirstName) AS firstNameupper
+    ,LOWER(FirstName) AS firstamelower
+    ,LEFT(FirstName, 2) AS firstnameleft -- dois caracteres a esquerda
+    ,RIGHT(FirstName, 2) AS firstnameright --dois caracteres a direita
+    ,TRIM(FirstName) AS trimfirstname -- remove espaços nos campos da coluna
+    ,LTRIM(FirstName) AS ltrimfirstname --remove espaços na esquerda nos campos da coluna
+    ,RTRIM(FirstName) AS rtrimfirstnaeme --remove espaços na direita nos campos da coluna
+    ,REPLACE(FirstName, 'SYED', 'deys') AS replacefirstname --substitui um campo por outro valor
+    ,REPLICATE('firstname' + ' ', 2) AS replicatefirstname -- replicando a palavra firstname 2x + espaço entre elas
+    ,STR(12.498,5,5) AS strnumber --convertendo numeros em strings
+    ,FORMAT(GETDATE(), 'yyyy-mm-dd') AS diaformatado --formatando a data atual
 FROM Person.Person;
