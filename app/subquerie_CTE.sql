@@ -270,5 +270,16 @@ FROM totalqtdsales
 WHERE qtdsales > (SELECT AVG(qtdsales) FROM totalqtdsales)
 ORDER BY qtdsales DESC;
 
+--Criando uma CTE recursiva para adicionar dias a partir de 2025-01-01
+--até 2026-01-01 com o maximo de recursividade em 366 linhas
+WITH tabeladias AS(
+SELECT 
+    CAST('2025-01-01' AS DATE) AS dias
+    UNION ALL 
+    SELECT DATEADD( DAY, 1, dias) FROM tabeladias
+    WHERE dias < '2026-01-01'
+)
+
 SELECT *
-FROM sales.SalesOrderHeader
+FROM tabeladias
+OPTION (MAXRECURSION 366)
