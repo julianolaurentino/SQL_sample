@@ -65,3 +65,9 @@ SELECT *
 FROM VendasPorProduto
 WHERE Ranking <= 5
 ORDER BY Categoria, Ranking;
+
+
+SELECT 
+    SalesOrderID
+    ,CAST(UnitPrice AS INT) as UnitPrice
+FROM Sales.SalesOrderDetail;
