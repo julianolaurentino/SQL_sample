@@ -283,3 +283,15 @@ SELECT
 SELECT *
 FROM tabeladias
 OPTION (MAXRECURSION 366)
+
+
+--Criar uma CTE para calcular a quantidade de vendas por produto
+--e exibir os 10 produtos mais vendidos com quantidade acima da média.
+SELECT TOP 10
+    SalesOrderID AS OrderID
+    ,SUM(OrderQty) AS TotalOrderQty
+FROM Sales.SalesOrderDetail
+WHERE OrderQty > (SELECT AVG(OrderQty) FROM SALES.SalesOrderDetail)
+GROUP BY SalesOrderID
+ORDER BY 2 DESC;
+
