@@ -17,7 +17,7 @@ Dominar consultas complexas em **SQL**, modelagem de dados e otimização de per
 * 🔹 Segurança e Governança → Controle de acesso e conformidade
 
 ## 🛠️ Prática ##
-* ✅ Criar consultas otimizadas para bases grandes (Ex: Kaggle Datasets)
+* ✅ Criar consultas otimizadas
 * ✅ Melhorar performance de queries usando índices e EXPLAIN ANALYZE
 * ✅ Construir procedures e triggers para automação
 
