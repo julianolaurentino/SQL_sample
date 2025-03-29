@@ -117,4 +117,19 @@ INNER JOIN Production.ProductSubcategory PS ON P.ProductSubcategoryID = PS.Produ
 SELECT *
 FROM salesorderdatails
 WHERE OrderQty >= 10
-ORDER BY Orderdate DESC;
+ORDER BY Orderdate DESC; 
+
+
+--selecionando e rankeando os produtos mais vendidos
+SELECT
+    FORMAT(SOD.ModifiedDate, 'dd/MM/yyyy') AS Orderdate
+    ,SOD.SalesOrderID
+    ,SOD.ProductID
+    ,SOD.OrderQty
+    ,P.Name AS ProductName
+    ,PS.Name AS ProductSubCategoryName
+    ,RANK() OVER (ORDER BY SUM(SOD.OrderQty) DESC) AS RankOrder
+FROM sales.SalesOrderDetail SOD
+INNER JOIN Production.Product P ON SOD.ProductID = P.ProductID
+INNER JOIN Production.ProductSubcategory PS ON P.ProductSubcategoryID = PS.ProductSubcategoryID
+GROUP BY SOD.SalesOrderID, SOD.ProductID, SOD.OrderQty, P.Name, PS.Name, SOD.ModifiedDate
