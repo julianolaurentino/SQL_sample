@@ -1,4 +1,4 @@
--- esse script é um exemplo de como usar o PIVOT e UNPIVOT no SQL Server
+--exemplos de scripts de como usar o PIVOT e UNPIVOT no SQL Server
 SELECT *
 FROM (
     SELECT 
@@ -8,5 +8,19 @@ FROM (
     FROM Production.Product
 ) AS SourceTable
 PIVOT (
-    SUM(ListPrice) FOR Name IN ([Mountain-200 Black, 42], [Mountain-200 Black, 38], [Mountain-200 Red, 38])
+    SUM(ListPrice) 
+    FOR Name IN ([Mountain-200 Black, 42], [Mountain-200 Black, 38], [Mountain-200 Red, 38])
 ) AS PivotTable;
+
+
+SELECT * 
+FROM (
+    SELECT
+        YEAR(OrderDate) AS OrderYear
+        ,TotalDue
+    FROM Sales.SalesOrderHeader
+) AS SourceTable
+PIVOT (
+    SUM(TotalDue)
+    FOR OrderYear IN ([2004], [2005], [2006], [2007], [2008], [2009], [2010], [2011], [2012], [2013])
+ ) AS PIVOTTable;
