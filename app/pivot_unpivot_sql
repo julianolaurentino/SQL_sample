@@ -5,7 +5,7 @@ FROM (
         FORMAT(ModifiedDate, 'dd/MM/yyyy') AS OrderDate,
         Name,
         ListPrice
-    FRO, Production.Product
+    FROM Production.Product
 ) AS SourceTable
 PIVOT (
     SUM(ListPrice) 
@@ -37,22 +37,13 @@ FROM (
         ,PS.Name AS SubcategoryName
         ,OD.OrderQty
     FROM Sales.SalesOrderDetail OD 
-    INNER JOI, Production.Product P ON OD.ProductID = P.ProductID 
-    INNER JOI, Production.ProductSubcategory PS ON P.ProductSubcategoryID = PS.ProductSubcategoryID
+    INNER JOIN Production.Product P ON OD.ProductID = P.ProductID 
+    INNER JOIN Production.ProductSubcategory PS ON P.ProductSubcategoryID = PS.ProductSubcategoryID
 ) AS SourceTable
 PIVOT (
     SUM(OrderQty) 
     FOR OrderYear IN ([2013])
 ) AS PivotTable;
-
-SELECT *
-FRO, Production.Product
-
-SELECT * 
-FRO, Production.ProductCategory
-
-SELECT * 
-FRO, Production.ProductSubcategory
 
 --PIVOT para mostrar o preço de lista (ListPrice) 
 --dos produtos das categorias "Bikes", "Components" e "Clothing".
@@ -62,9 +53,9 @@ FROM (
         P.Name AS ProductName,
         PC.Name AS CategoryName,
         P.ListPrice
-    FRO, Production.Product P
-    INNER JOI, Production.ProductCategory PC ON P.ProductSubcategoryID = PC.ProductCategoryID
-    INNER JOI, Production.ProductSubcategory PS ON P.ProductSubcategoryID = PS.ProductSubcategoryID
+    FROM Production.Product P
+    INNER JOIN Production.ProductCategory PC ON P.ProductSubcategoryID = PC.ProductCategoryID
+    INNER JOIN Production.ProductSubcategory PS ON P.ProductSubcategoryID = PS.ProductSubcategoryID
 ) AS SourceTable
 PIVOT (
     SUM(ListPrice) 
