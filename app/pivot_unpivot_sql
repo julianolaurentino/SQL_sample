@@ -44,3 +44,29 @@ PIVOT (
     SUM(OrderQty) 
     FOR OrderYear IN ([2013])
 ) AS PivotTable;
+
+SELECT *
+FROM Production.Product
+
+SELECT * 
+FROM Production.ProductCategory
+
+SELECT * 
+FROM Production.ProductSubcategory
+
+--PIVOT para mostrar o preço de lista (ListPrice) 
+--dos produtos das categorias "Bikes", "Components" e "Clothing".
+SELECT *
+FROM (
+    SELECT
+        P.Name AS ProductName,
+        PC.Name AS CategoryName,
+        P.ListPrice
+    FROM Production.Product P
+    INNER JOIN Production.ProductCategory PC ON P.ProductSubcategoryID = PC.ProductCategoryID
+    INNER JOIN Production.ProductSubcategory PS ON P.ProductSubcategoryID = PS.ProductSubcategoryID
+) AS SourceTable
+PIVOT (
+    SUM(ListPrice) 
+    FOR CategoryName IN ([Bikes], [Components], [Clothing])
+) AS PivotTable;
