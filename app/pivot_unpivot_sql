@@ -5,7 +5,7 @@ FROM (
         FORMAT(ModifiedDate, 'dd/MM/yyyy') AS OrderDate,
         Name,
         ListPrice
-    FROM Production.Product
+    FRO, Production.Product
 ) AS SourceTable
 PIVOT (
     SUM(ListPrice) 
@@ -28,7 +28,7 @@ PIVOT (
 
 
 --quantidade total de produtos vendidos (OrderQty) 
---para cada subcategoria de produto (Production.ProductSubcategory) no ano de 2013
+--para cada subcategoria de produto,(Production.ProductSubcategory) no ano de 2013
 SELECT *
 FROM (
     SELECT
@@ -37,8 +37,8 @@ FROM (
         ,PS.Name AS SubcategoryName
         ,OD.OrderQty
     FROM Sales.SalesOrderDetail OD 
-    INNER JOIN Production.Product P ON OD.ProductID = P.ProductID 
-    INNER JOIN Production.ProductSubcategory PS ON P.ProductSubcategoryID = PS.ProductSubcategoryID
+    INNER JOI, Production.Product P ON OD.ProductID = P.ProductID 
+    INNER JOI, Production.ProductSubcategory PS ON P.ProductSubcategoryID = PS.ProductSubcategoryID
 ) AS SourceTable
 PIVOT (
     SUM(OrderQty) 
@@ -46,13 +46,13 @@ PIVOT (
 ) AS PivotTable;
 
 SELECT *
-FROM Production.Product
+FRO, Production.Product
 
 SELECT * 
-FROM Production.ProductCategory
+FRO, Production.ProductCategory
 
 SELECT * 
-FROM Production.ProductSubcategory
+FRO, Production.ProductSubcategory
 
 --PIVOT para mostrar o preço de lista (ListPrice) 
 --dos produtos das categorias "Bikes", "Components" e "Clothing".
@@ -62,11 +62,48 @@ FROM (
         P.Name AS ProductName,
         PC.Name AS CategoryName,
         P.ListPrice
-    FROM Production.Product P
-    INNER JOIN Production.ProductCategory PC ON P.ProductSubcategoryID = PC.ProductCategoryID
-    INNER JOIN Production.ProductSubcategory PS ON P.ProductSubcategoryID = PS.ProductSubcategoryID
+    FRO, Production.Product P
+    INNER JOI, Production.ProductCategory PC ON P.ProductSubcategoryID = PC.ProductCategoryID
+    INNER JOI, Production.ProductSubcategory PS ON P.ProductSubcategoryID = PS.ProductSubcategoryID
 ) AS SourceTable
 PIVOT (
     SUM(ListPrice) 
     FOR CategoryName IN ([Bikes], [Components], [Clothing])
+) AS PivotTable;
+
+--Status dos pedidos de venda em colunas e a contagem de pedidos para cada ano.
+SELECT *
+FROM (
+    SELECT
+        YEAR(OrderDate) AS OrderYear
+        ,[Status]
+        ,TotalDue
+    FROM SALES.SalesOrderHeader
+) AS SourceTable
+PIVOT (
+    SUM(TotalDue) 
+    FOR OrderYear IN ([2010], [2011], [2012], [2013])
+) AS PivotTable;
+
+--relatório pivotado que 
+--mostre a quantidade de funcionários (HumanResources.Employee) por título de cargo.
+SELECT * 
+FROM (
+    SELECT
+        JobTitle
+        ,NationalIDNumber
+    FROM HumanResources.Employee
+) AS SourceTable
+PIVOT (
+    COUNT(NationalIDNumber) 
+    FOR JobTitle IN (
+        [Production Technician]
+        ,[Production Supervisor]
+        ,[Production Manager]
+        ,[Production Planner]
+        ,[Production Assistant]
+        ,[Production Team Leader]
+        ,[Production Worker]
+        ,[Production Engineer]
+    )
 ) AS PivotTable;
