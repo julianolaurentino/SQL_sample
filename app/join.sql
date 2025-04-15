@@ -71,3 +71,14 @@ SELECT
 FROM [AdventureWorks2017].[Sales].[SalesOrderDetail] A,
     [AdventureWorks2017].[Sales].[SalesOrderDetail] B
 WHERE A.ProductID = B.ProductID
+
+
+SELECT
+    PP.FirstName
+    ,PP.LastName
+    ,PA.AddressLine1
+    ,PA.City
+    ,ROW_NUMBER() OVER (ORDER BY PA.City DESC) AS RankCity
+FROM person.person PP
+INNER JOIN Person.BusinessEntityAddress BEA ON PP.BusinessEntityID = BEA.BusinessEntityID
+INNER JOIN Person.Address PA ON BEA.AddressID = PA.AddressID
