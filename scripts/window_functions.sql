@@ -123,7 +123,7 @@ ORDER BY Orderdate DESC;
 --selecionando e rankeando os produtos mais vendidos
 SELECT
     FORMAT(SOD.ModifiedDate, 'dd/MM/yyyy') AS Orderdate
-    ,SOD.SalesOrderID
+    --,SOD.SalesOrderID
     ,SOD.ProductID
     ,SOD.OrderQty
     ,P.Name AS ProductName
